@@ -42,7 +42,7 @@ export const randomCommit = (name, ticket) => {
 
 export const randomCommits = (name, ticket) => {
     const commits = [];
-    for (let i = 0; i < chance.integer({ min: 200, max: 300 }); i++) {
+    for (let i = 0; i < chance.integer({ min: 50, max: 80 }); i++) {
         commits.push(randomCommit(name, ticket));
     }
     return commits;
