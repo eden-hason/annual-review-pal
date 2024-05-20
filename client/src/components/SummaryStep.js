@@ -1,23 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, CardHeader, CardBody, Button, Text } from '@chakra-ui/react';
+import {Card, CardHeader, CardBody, Button, Text, Box, Table, Thead, Tr, Th, Tbody, Td} from '@chakra-ui/react';
 
 const SummaryStep = ({}) => {
+    const [commits, setCommits] = useState([]);
+    const [issues, setIssues] = useState([]);
+    const [joinedData, setJoinedData] = useState([]);
+
     useEffect(() => {
         const fetchUserCommits = async () => {
             return await axios.get('http://localhost:2406/userCommits');
         };
         fetchUserCommits().then((res) => {
-            console.log('userCommits', res.data);
+            setCommits(res.data);
+            console.log('userCommits', commits);
         });
 
         const fetchUserTickets = async () => {
             return await axios.get('http://localhost:2406/userTickets');
         };
         fetchUserTickets().then((res) => {
-            console.log('userTickets', res.data?.issues);
+            setIssues(res.data?.issues);
+           console.log('userTickets', issues);
         });
+
+
     }, []);
+
+    useEffect(() => {
+        if(issues.length > 0 && commits.length > 0) {
+            const data = commits.map(commit => {
+                const issue = issues.find(issue => commit.message.startsWith(issue.key));
+                return issue ? {...commit, key: issue.key} : null;
+            }).filter(item => item !== null);
+            setJoinedData(data);
+        }
+    }, [commits, issues]);
 
   return (
     <Card
@@ -39,6 +57,26 @@ const SummaryStep = ({}) => {
         }}>
         <Text style={{ marginBottom: '24px' }}>Summary</Text>
       </CardBody>
+        <Box border="1px" borderColor="yellow.500" p={4}>
+            <Table variant="striped" colorScheme="yellow">
+                <Thead>
+                    <Tr>
+                        <Th>Lines</Th>
+                        <Th>Key</Th>
+                        <Th>Date</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {joinedData.map((data, index) => (
+                        <Tr key={index}>
+                            <Td>{data.lines}</Td>
+                            <Td>{data.key}</Td>
+                            <Td>{new Date(data.date).toLocaleString()}</Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
+        </Box>
     </Card>
   );
 };
