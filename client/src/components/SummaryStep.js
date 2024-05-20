@@ -5,19 +5,17 @@ import { Card, CardHeader, CardBody, Button, Text } from '@chakra-ui/react';
 const SummaryStep = ({}) => {
     useEffect(() => {
         const fetchUserCommits = async () => {
-            const userCommits = await axios.get('http://localhost:2406/userCommits');
-            console.log('userCommits', userCommits.data);
+            return await axios.get('http://localhost:2406/userCommits');
         };
         fetchUserCommits().then((res) => {
-            console.log('userCommits', res);
+            console.log('userCommits', res.data);
         });
 
         const fetchUserTickets = async () => {
-            const userTickets = await axios.get('http://localhost:2406/userTickets');
-            console.log('userTickets', userTickets.data);
+            return await axios.get('http://localhost:2406/userTickets');
         };
         fetchUserTickets().then((res) => {
-            console.log('userTickets', res);
+            console.log('userTickets', res.data?.issues);
         });
     }, []);
 
