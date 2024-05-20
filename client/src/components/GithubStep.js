@@ -10,9 +10,22 @@ import {
   HStack,
   Container,
 } from '@chakra-ui/react';
+import axios from 'axios';
 
 const GithubStep = ({ onNextClick }) => {
   const [accessToken, setAccessToken] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [githubSummary, setGithubSummary] = useState(null);
+
+  const handleSubmitClick = () => {
+    setIsLoading(true);
+    const response = axios
+      .get('http://localhotst:4206/userCommits')
+      .then((res) => {
+        setIsLoading(false);
+        console.log('res', res);
+      });
+  };
 
   return (
     <Card
@@ -69,7 +82,7 @@ const GithubStep = ({ onNextClick }) => {
               colorScheme="teal"
               style={{ flex: '50%' }}
               isDisabled={!accessToken}
-              onClick={() => onNextClick(accessToken)}>
+              onClick={handleSubmitClick}>
               Submit
             </Button>
           </div>

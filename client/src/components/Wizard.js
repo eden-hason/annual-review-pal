@@ -25,7 +25,7 @@ const steps = [
 ];
 
 const Wizard = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
   const [jiraAccessToken, setJiraAccessToken] = useState('');
   const [githubAccessToken, setGithubAccessToken] = useState('');
   const { activeStep } = useSteps({
