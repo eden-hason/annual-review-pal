@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
-import {Card, CardHeader, CardBody, Button, Text, Box, Table, Thead, Tr, Th, Tbody, Td} from '@chakra-ui/react';
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    Spinner,
+    Text,
+    Box,
+    Table,
+    Thead,
+    Tr,
+    Th,
+    Tbody,
+    Td,
+    Center
+} from '@chakra-ui/react';
 const Chance = require('chance');
 const chance = new Chance();
 const SummaryStep = ({}) => {
@@ -60,6 +74,11 @@ const SummaryStep = ({}) => {
         }}>
         <Text style={{ marginBottom: '24px' }}>Summary</Text>
           <Box border="1px" borderColor="yellow.500" p={4}>
+              {joinedData.length == 0 ? (
+                  <Center>
+                      <Spinner size="xl" />
+                  </Center>
+              ) : (
               <StyledTable variant="striped" colorScheme="yellow">
                   <Thead>
                       <Tr>
@@ -82,6 +101,7 @@ const SummaryStep = ({}) => {
                       ))}
                   </Tbody>
               </StyledTable>
+                  )}
           </Box>
       </CardBody>
 
