@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
 import {
-  Card,
-  CardBody,
-  Button,
-  Text,
-  FormControl,
-  FormLabel,
-  Input,
-  HStack,
-  Container,
+    Card,
+    CardBody,
+    Button,
+    Text,
+    FormControl,
+    FormLabel,
+    Input,
+    HStack,
+    Container, Spinner, SlideFade,
 } from '@chakra-ui/react';
-import axios from 'axios';
+import axios from "axios";
 
 const GithubStep = ({ onNextClick }) => {
   const [accessToken, setAccessToken] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [githubSummary, setGithubSummary] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [gitHubSummary, setGitHubSummary] = useState(null);
 
-  const handleSubmitClick = () => {
-    setIsLoading(true);
-    const response = axios
-      .get('http://localhotst:4206/userCommits')
-      .then((res) => {
-        setIsLoading(false);
-        console.log('res', res);
-      });
-  };
+    const handleSubmitClick = () => {
+        setIsLoading(true);
+
+        setTimeout(() => {
+            const somedata = [
+                { key: 'APRV-42383', summary: 'Example issue summary 1' },
+                { key: 'APRV-42384', summary: 'Example issue summary 2' },
+            ];
+            setGitHubSummary(somedata);
+            setIsLoading(false);
+        }, 5000); // Wait for 5 seconds
+    };
 
   return (
     <Card
@@ -57,6 +60,8 @@ const GithubStep = ({ onNextClick }) => {
           </div>
 
           <div>
+              {!isLoading && !gitHubSummary && (
+                  <>
             <FormControl style={{ marginBottom: '8px' }}>
               <FormLabel>
                 If you're a developer, adding an access token to Github can help
@@ -68,23 +73,49 @@ const GithubStep = ({ onNextClick }) => {
                 onChange={(e) => setAccessToken(e.target.value)}
               />
             </FormControl>
+                  </>
+              )}
+              {isLoading && <Text fontSize="xl">Getting Jira data...</Text>}
+
+              <SlideFade in={!!gitHubSummary} offsetY="20px">
+                  <Text fontSize={'xl'}>
+                      Employee Of The Year!
+                      <br /> You created 150 commits this year! Good job!
+                  </Text>
+              </SlideFade>
           </div>
 
-          <div style={{ display: 'flex' }}>
-            <Button
-              colorScheme="teal"
-              variant="outline"
-              style={{ flex: '50%', marginRight: '8px' }}
-              onClick={onNextClick}>
-              Skip
-            </Button>
-            <Button
-              colorScheme="teal"
-              style={{ flex: '50%' }}
-              isDisabled={!accessToken}
-              onClick={handleSubmitClick}>
-              Submit
-            </Button>
+          <div >
+              {!isLoading && !gitHubSummary && (
+                  <>
+                  <Button
+                      colorScheme="teal"
+                      variant="outline"
+                      style={{ flex: '50%', marginRight: '8px' }}
+                      onClick={onNextClick}>
+                      Skip
+                  </Button>
+                    <Button
+                        colorScheme="teal"
+                        style={{ flex: '50%' }}
+                        isDisabled={!accessToken}
+                        onClick={() => handleSubmitClick(accessToken)}>
+                        Submit
+                    </Button>
+                  </>
+              )}
+
+              {isLoading && <Spinner />}
+
+              {!!gitHubSummary && (
+                <Button
+                  colorScheme="teal"
+                  width={'100%'}
+                  isDisabled={!accessToken}
+                  onClick={() => onNextClick(accessToken)}>
+                  Submit
+                </Button>
+              )}
           </div>
         </Container>
       </CardBody>
