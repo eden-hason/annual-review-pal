@@ -74,15 +74,21 @@ const JiraStep = ({ onNextClick }) => {
             </>
           )}
 
-          {isLoading && <Text fontSize="xl">Getting Jira data...</Text>}
+          {isLoading && (
+            <SlideFade in={isLoading} offsetY="20px">
+              <Text fontSize="xl">Getting Jira data...</Text>
+            </SlideFade>
+          )}
 
-          <SlideFade in={!!jiraSummary} offsetY="20px">
-            <Text fontSize={'xl'}>
-              Nice!
-              <br /> During the year you worked on 68 tasks, of which 22 were
-              bug fixes
-            </Text>
-          </SlideFade>
+          {jiraSummary && (
+            <SlideFade in={jiraSummary} offsetY="20px">
+              <Text fontSize={'xl'}>
+                Nice!
+                <br /> During the year you worked on 68 tasks, of which 22 were
+                bug fixes
+              </Text>
+            </SlideFade>
+          )}
         </div>
 
         <div>

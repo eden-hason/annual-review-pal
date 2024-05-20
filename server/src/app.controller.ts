@@ -1,10 +1,13 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import axios from 'axios';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
+
+  private delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   @Get()
   getHello(): string {
@@ -26,15 +29,16 @@ export class AppController {
   }
 
   @Get('/tickets-summary')
-  async getTicketsSummary(@Query('accessToken') accessToken) {
-    console.log('accessToken', accessToken);
-    const response = await axios.get(
-      'https://jira.tipalti.com:7000/rest/api/latest/search?jql=assignee=currentuser()',
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-    );
+  async getTicketsSummary() {
+    await this.delay(3000);
 
-    return { ticketsAmount: 68, bugFixes: 22 };
+    return 'This response was delayed by 3 seconds';
+  }
 
-    return response.data;
+  @Get('/commits-summary')
+  async getCommitsSummary() {
+    await this.delay(5000);
+
+    return 'This response was delayed by 5 seconds';
   }
 }
