@@ -43,17 +43,17 @@ export class AppService implements OnModuleInit {
     let commits = [];
     try {
       try {
-        const url = `https://api.github.com/repos/${owner}/${repo}/commits`;
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `token ${token}`,
-          },
-          params: {
-            per_page: 50,
-          },
-        });
-
-        commits = response.data;
+        // const url = `https://api.github.com/repos/${owner}/${repo}/commits`;
+        // const response = await axios.get(url, {
+        //   headers: {
+        //     Authorization: `token ${token}`,
+        //   },
+        //   params: {
+        //     per_page: 50,
+        //   },
+        // });
+        //
+        // commits = response.data;
       }
       catch (error) {
         //console.error(`Error fetching commits: ${error.message}`);
