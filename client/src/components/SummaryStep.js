@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {Card, CardHeader, CardBody, Button, Text, Box, Table, Thead, Tr, Th, Tbody, Td} from '@chakra-ui/react';
-
+const Chance = require('chance');
+const chance = new Chance();
 const SummaryStep = ({}) => {
     const [commits, setCommits] = useState([]);
     const [issues, setIssues] = useState([]);
@@ -30,7 +31,8 @@ const SummaryStep = ({}) => {
     useEffect(() => {
         if(issues.length > 0 && commits.length > 0) {
             const data = commits.map(commit => {
-                const issue = issues.find(issue => commit.message.startsWith(issue.key));
+                //const issue = issues.find(issue => commit.message.startsWith(issue.key));
+                const issue = chance.pickone(issues)
                 return issue ? {...commit, key: issue.key} : null;
             }).filter(item => item !== null);
             setJoinedData(data);
