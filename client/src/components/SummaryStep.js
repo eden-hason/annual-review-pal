@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styled from '@emotion/styled';
 import {Card, CardHeader, CardBody, Button, Text, Box, Table, Thead, Tr, Th, Tbody, Td} from '@chakra-ui/react';
 const Chance = require('chance');
 const chance = new Chance();
@@ -58,29 +59,37 @@ const SummaryStep = ({}) => {
           height: '100%',
         }}>
         <Text style={{ marginBottom: '24px' }}>Summary</Text>
+          <Box border="1px" borderColor="yellow.500" p={4}>
+              <StyledTable variant="striped" colorScheme="yellow">
+                  <Thead>
+                      <Tr>
+                          <Th>Lines</Th>
+                          <Th>Key</Th>
+                          <Th>Date</Th>
+                          <Th>The Impact Dscription</Th>
+                          <Th>Score</Th>
+                      </Tr>
+                  </Thead>
+                  <Tbody>
+                      {joinedData.map((data, index) => (
+                          <Tr key={index}>
+                              <Td>{data.lines}</Td>
+                              <Td>{data.key}</Td>
+                              <Td>{new Date(data.date).toLocaleString()}</Td>
+                              <Td>{'' }</Td>
+                              <Td>{ ''}</Td>
+                          </Tr>
+                      ))}
+                  </Tbody>
+              </StyledTable>
+          </Box>
       </CardBody>
-        <Box border="1px" borderColor="yellow.500" p={4}>
-            <Table variant="striped" colorScheme="yellow">
-                <Thead>
-                    <Tr>
-                        <Th>Lines</Th>
-                        <Th>Key</Th>
-                        <Th>Date</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {joinedData.map((data, index) => (
-                        <Tr key={index}>
-                            <Td>{data.lines}</Td>
-                            <Td>{data.key}</Td>
-                            <Td>{new Date(data.date).toLocaleString()}</Td>
-                        </Tr>
-                    ))}
-                </Tbody>
-            </Table>
-        </Box>
+
     </Card>
   );
 };
-
+const StyledTable = styled(Table)`
+  font-size: small;
+  color: black;
+`;
 export default SummaryStep;
