@@ -1,8 +1,25 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, OnModuleInit} from '@nestjs/common';
 import axios from 'axios';
 import {randomCommits} from "./stub/gitHubData";
 @Injectable()
-export class AppService {
+export class AppService implements OnModuleInit {
+
+  userTickets: any;
+  async onModuleInit() {
+    this.userTickets = await this.getUserTickets();
+  }
+
+  async getUserTickets() {
+    if (!this.userTickets){
+      const response = await axios.get(
+          'https://jira.tipalti.com:7000/rest/api/latest/search?jql=assignee=currentuser()',
+          { headers: { Authorization: `Bearer ${process.env.JIRA_KEY}` } },
+      );
+      this.userTickets = response.data;
+    }
+    console.log('userTickets', this.userTickets);
+    return this.userTickets;
+  }
   getHello(): string {
     return 'Hello World!';
   }
@@ -18,7 +35,7 @@ export class AppService {
         },
       });
 
-      console.log('user', response.data);
+      // console.log('user', response.data);
     } catch (error) {
       console.error(`Error fetching user data: ${error.message}`);
     }
@@ -55,7 +72,7 @@ export class AppService {
           lines: lines,
         }
       });
-      console.log(mappedCommits);
+      // console.log(mappedCommits);
       return mappedCommits;
     } catch (error) {
       console.error(`Error in get commits: ${error.message}`);
