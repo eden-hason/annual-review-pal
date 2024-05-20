@@ -66,10 +66,10 @@ const GithubStep = ({ onNextClick }) => {
 
             {!isLoading && githubSummary && (
               <SlideFade in={!isLoading && githubSummary} offsetY="20px">
-                <Text fontSize="xl">
-                  You are on fire 🔥
-                  <br /> We detected that you performed more than 100 commits
-                  and 47 code reviews
+                <Text fontSize={'xl'}>
+                  Employee Of The Year 🔥
+                  <br /> You performed 150 commits and 47 code reviews this
+                  year, Good job!
                 </Text>
               </SlideFade>
             )}
