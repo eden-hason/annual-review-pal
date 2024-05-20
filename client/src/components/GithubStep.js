@@ -8,6 +8,7 @@ import {
   FormLabel,
   Input,
   HStack,
+  Container,
 } from '@chakra-ui/react';
 
 const GithubStep = ({ onNextClick }) => {
@@ -16,45 +17,63 @@ const GithubStep = ({ onNextClick }) => {
   return (
     <Card
       style={{
-        background: 'unset',
-        color: 'white',
-        boxShadow: 'unset',
         height: '400px',
-        minHeight: '400px',
-        width: '600px',
-        maxWidth: '600px',
+        maxHeight: '600px',
+        width: '800px',
+        maxWidth: '800px',
       }}>
-      <CardBody
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          height: '100%',
-        }}>
-        <Text style={{ marginBottom: '24px' }}>Github access token</Text>
-
-        <div>
-          <FormControl style={{ marginBottom: '8px' }}>
-            <FormLabel>Github access token</FormLabel>
-            <Input
-              type="text"
-              onChange={(e) => setAccessToken(e.target.value)}
+      <CardBody>
+        <Container
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100%',
+          }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjFUDe-vdiprKpCsiLoRmfCdUq0WS5tqUR9fyEzJjQ0g&s"
+              style={{ width: '24px', marginRight: '8px' }}
             />
-          </FormControl>
+            <Text fontSize="2xl">Github Setup</Text>
+          </div>
+
+          <div>
+            <FormControl style={{ marginBottom: '8px' }}>
+              <FormLabel>
+                If you're a developer, adding an access token to Github can help
+                us compile a deeper analysis
+              </FormLabel>
+              <Input
+                placeholder="Github access token"
+                type="text"
+                onChange={(e) => setAccessToken(e.target.value)}
+              />
+            </FormControl>
+          </div>
+
           <div style={{ display: 'flex' }}>
             <Button
+              colorScheme="teal"
+              variant="outline"
               style={{ flex: '50%', marginRight: '8px' }}
               onClick={onNextClick}>
               Skip
             </Button>
             <Button
+              colorScheme="teal"
               style={{ flex: '50%' }}
               isDisabled={!accessToken}
               onClick={() => onNextClick(accessToken)}>
-              Next
+              Submit
             </Button>
           </div>
-        </div>
+        </Container>
       </CardBody>
     </Card>
   );

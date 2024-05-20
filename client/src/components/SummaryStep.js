@@ -8,13 +8,10 @@ const SummaryStep = ({}) => {
   return (
     <Card
       style={{
-        background: 'unset',
-        color: 'white',
-        boxShadow: 'unset',
         height: '400px',
-        minHeight: '400px',
-        width: '600px',
-        maxWidth: '600px',
+        maxHeight: '600px',
+        width: '800px',
+        maxWidth: '800px',
       }}>
       <CardBody
         style={{

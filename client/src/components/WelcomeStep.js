@@ -12,19 +12,16 @@ const WelcomeStep = ({ onNextClick }) => {
       return response.data;
     };
 
-    fetchData().then((res) => setUserTickets(res));
+    // fetchData().then((res) => setUserTickets(res));
   }, []);
 
   return (
     <Card
       style={{
-        background: 'unset',
-        color: 'white',
-        boxShadow: 'unset',
         height: '400px',
-        minHeight: '400px',
-        width: '600px',
-        maxWidth: '600px',
+        maxHeight: '600px',
+        width: '800px',
+        maxWidth: '800px',
       }}>
       <CardBody
         style={{
@@ -33,8 +30,23 @@ const WelcomeStep = ({ onNextClick }) => {
           justifyContent: 'space-between',
           height: '100%',
         }}>
-        <Text>Welcome to AppriseMe!</Text>
-        <Button onClick={onNextClick}>Next</Button>
+        <Text>
+          Welcome to{' '}
+          <span style={{ color: '#2C7A7B', fontWeight: 'bold' }}>Apprise</span>
+          Me
+        </Text>
+        <div style={{ textAlign: 'left' }}>
+          <Text fontSize="lg" style={{ marginBottom: '8px' }}>
+            The tool that will help you be ready for the annual review
+          </Text>
+          <Text fontSize="md">
+            Using APIs and AI, you can get an in-depth summary of your
+            performance over the past year in less than a minute
+          </Text>
+        </div>
+        <Button colorScheme="teal" onClick={onNextClick}>
+          Let's start
+        </Button>
       </CardBody>
     </Card>
   );

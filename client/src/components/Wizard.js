@@ -20,7 +20,7 @@ import {
 const steps = [
   { title: 'Welcome' },
   { title: 'Jira setup' },
-  { title: 'Github setup' },
+  { title: 'Github setup', description: '(optional)' },
   { title: 'Summary' },
 ];
 
@@ -84,7 +84,7 @@ const Wizard = () => {
         </div>
       )}
 
-      <Stepper index={step} style={{ marginTop: '16px' }}>
+      <Stepper index={step} style={{ color: 'black', marginTop: '16px' }}>
         {steps.map((step, index) => (
           <Step key={index}>
             <StepIndicator>
