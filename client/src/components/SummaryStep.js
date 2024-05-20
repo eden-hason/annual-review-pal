@@ -11,7 +11,6 @@ const SummaryStep = ({}) => {
         background: 'unset',
         color: 'white',
         boxShadow: 'unset',
-        border: '1px solid white',
         height: '400px',
         minHeight: '400px',
         width: '600px',

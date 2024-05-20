@@ -18,7 +18,6 @@ const JiraStep = ({ onNextClick }) => {
         background: 'unset',
         color: 'white',
         boxShadow: 'unset',
-        border: '1px solid white',
         height: '400px',
         minHeight: '400px',
         width: '600px',
@@ -28,23 +27,25 @@ const JiraStep = ({ onNextClick }) => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'space-between',
+          justifyContent: 'space-between',
           height: '100%',
         }}>
-        <Text style={{ marginBottom: '24px' }}>Jira access token</Text>
-        <FormControl>
-          <FormLabel>Jira access token</FormLabel>
-          <Input
-            type="text"
-            size="sm"
-            onChange={(e) => setAccessToken(e.target.value)}
-          />
-        </FormControl>
-        <Button
-          isDisabled={!accessToken}
-          onClick={() => onNextClick(accessToken)}>
-          Next
-        </Button>
+        <Text>Jira access token</Text>
+        <div>
+          <FormControl style={{ marginBottom: '3px' }}>
+            <FormLabel>Jira access token</FormLabel>
+            <Input
+              type="text"
+              onChange={(e) => setAccessToken(e.target.value)}
+            />
+          </FormControl>
+          <Button
+            width={'100%'}
+            isDisabled={!accessToken}
+            onClick={() => onNextClick(accessToken)}>
+            Next
+          </Button>
+        </div>
       </CardBody>
     </Card>
   );

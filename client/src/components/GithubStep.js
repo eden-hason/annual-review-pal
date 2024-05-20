@@ -19,7 +19,6 @@ const GithubStep = ({ onNextClick }) => {
         background: 'unset',
         color: 'white',
         boxShadow: 'unset',
-        border: '1px solid white',
         height: '400px',
         minHeight: '400px',
         width: '600px',
@@ -29,26 +28,33 @@ const GithubStep = ({ onNextClick }) => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'space-between',
+          justifyContent: 'space-between',
           height: '100%',
         }}>
         <Text style={{ marginBottom: '24px' }}>Github access token</Text>
-        <FormControl>
-          <FormLabel>Github access token</FormLabel>
-          <Input
-            type="text"
-            size="sm"
-            onChange={(e) => setAccessToken(e.target.value)}
-          />
-        </FormControl>
-        <HStack spacing="8px">
-          <Button
-            isDisabled={!accessToken}
-            onClick={() => onNextClick(accessToken)}>
-            Next
-          </Button>
-          <Button onClick={onNextClick}>Skip</Button>
-        </HStack>
+
+        <div>
+          <FormControl style={{ marginBottom: '8px' }}>
+            <FormLabel>Github access token</FormLabel>
+            <Input
+              type="text"
+              onChange={(e) => setAccessToken(e.target.value)}
+            />
+          </FormControl>
+          <div style={{ display: 'flex' }}>
+            <Button
+              style={{ flex: '50%', marginRight: '8px' }}
+              onClick={onNextClick}>
+              Skip
+            </Button>
+            <Button
+              style={{ flex: '50%' }}
+              isDisabled={!accessToken}
+              onClick={() => onNextClick(accessToken)}>
+              Next
+            </Button>
+          </div>
+        </div>
       </CardBody>
     </Card>
   );

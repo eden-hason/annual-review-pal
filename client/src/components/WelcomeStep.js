@@ -4,11 +4,10 @@ import { Card, CardHeader, CardBody, Button, Text } from '@chakra-ui/react';
 
 const WelcomeStep = ({ onNextClick }) => {
   const [userTickets, setUserTickets] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get('http://localhost:2406/userTickets');
-
-      console.log('response.data', response.data);
 
       return response.data;
     };
@@ -22,7 +21,6 @@ const WelcomeStep = ({ onNextClick }) => {
         background: 'unset',
         color: 'white',
         boxShadow: 'unset',
-        border: '1px solid white',
         height: '400px',
         minHeight: '400px',
         width: '600px',
@@ -32,10 +30,10 @@ const WelcomeStep = ({ onNextClick }) => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'space-between',
+          justifyContent: 'space-between',
           height: '100%',
         }}>
-        <Text style={{ marginBottom: '24px' }}>Welcome to Apprise Me!</Text>
+        <Text>Welcome to AppriseMe!</Text>
         <Button onClick={onNextClick}>Next</Button>
       </CardBody>
     </Card>
