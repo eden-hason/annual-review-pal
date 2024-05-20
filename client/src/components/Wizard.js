@@ -3,12 +3,35 @@ import SummaryStep from './SummaryStep';
 import GithubStep from './GithubStep';
 import JiraStep from './JiraStep';
 import WelcomeStep from './WelcomeStep';
-// import './Wizard.css'; // Your CSS for transitions
+import {
+  Stepper,
+  Step,
+  StepIndicator,
+  StepStatus,
+  Box,
+  StepTitle,
+  StepDescription,
+  StepIcon,
+  StepNumber,
+  StepSeparator,
+  useSteps,
+} from '@chakra-ui/react';
+
+const steps = [
+  { title: 'Welcome' },
+  { title: 'Jira setup' },
+  { title: 'Github setup' },
+  { title: 'Summary' },
+];
 
 const Wizard = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [jiraAccessToken, setJiraAccessToken] = useState('');
   const [githubAccessToken, setGithubAccessToken] = useState('');
+  const { activeStep } = useSteps({
+    index: 0,
+    count: steps.length,
+  });
 
   const nextStep = (payload) => {
     setStep(step + 1);
@@ -30,7 +53,7 @@ const Wizard = () => {
 
   return (
     <div className="wizard">
-      {step === 1 && (
+      {step === 0 && (
         <div
           in={step === 1}
           timeout={300}
@@ -40,7 +63,7 @@ const Wizard = () => {
         </div>
       )}
 
-      {step === 2 && (
+      {step === 1 && (
         <div classNames="wizard-transition">
           <JiraStep
             onNextClick={handleJiraScreenNextClick}
@@ -49,17 +72,38 @@ const Wizard = () => {
         </div>
       )}
 
-      {step === 3 && (
+      {step === 2 && (
         <div classNames="wizard-transition">
           <GithubStep onNextClick={handleGithubScreenNextClick} />
         </div>
       )}
 
-      {step === 4 && (
+      {step === 3 && (
         <div classNames="wizard-transition">
           <SummaryStep />
         </div>
       )}
+
+      <Stepper index={step} style={{ marginTop: '16px' }}>
+        {steps.map((step, index) => (
+          <Step key={index}>
+            <StepIndicator>
+              <StepStatus
+                complete={<StepIcon />}
+                incomplete={<StepNumber />}
+                active={<StepNumber />}
+              />
+            </StepIndicator>
+
+            <Box flexShrink="0">
+              <StepTitle>{step.title}</StepTitle>
+              <StepDescription>{step.description}</StepDescription>
+            </Box>
+
+            <StepSeparator />
+          </Step>
+        ))}
+      </Stepper>
     </div>
   );
 };
