@@ -10,7 +10,9 @@ import {
   SlideFade,
   Container,
   Spinner,
+  Link,
 } from '@chakra-ui/react';
+import { QuestionOutlineIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 
 const GithubStep = ({ onNextClick }) => {
@@ -79,6 +81,13 @@ const GithubStep = ({ onNextClick }) => {
                 <FormLabel>
                   If you're a developer, adding an access token to Github can
                   help us compile a deeper analysis
+                  <Link
+                    style={{ marginLeft: '6px' }}
+                    color="teal.500"
+                    href="https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens"
+                    target="_blank">
+                    <QuestionOutlineIcon />
+                  </Link>
                 </FormLabel>
                 <Input
                   placeholder="Github access token"

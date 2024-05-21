@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import {
-    Card,
-    CardBody,
-    Button,
-    Text,
-    FormControl,
-    FormLabel,
-    Input,
-    Spinner,
-    SlideFade,
+  Card,
+  CardBody,
+  Button,
+  Text,
+  FormControl,
+  FormLabel,
+  Input,
+  Spinner,
+  SlideFade,
+  Link,
 } from '@chakra-ui/react';
+import { QuestionOutlineIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 
 const JiraStep = ({ onNextClick }) => {
@@ -28,11 +30,6 @@ const JiraStep = ({ onNextClick }) => {
         setJiraSummary(res);
       });
   };
-
-  const handleHowToGetJiraToken = () => {
-      const url = 'https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html'
-      window.open(url, "_blank")
-  }
 
   return (
     <Card
@@ -68,15 +65,19 @@ const JiraStep = ({ onNextClick }) => {
                 <FormLabel>
                   First let's connect to your Jira account to pull all the tasks
                   you've worked on this year
+                  <Link
+                    style={{ marginLeft: '6px' }}
+                    color="teal.500"
+                    href="https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html"
+                    target="_blank">
+                    <QuestionOutlineIcon />
+                  </Link>
                 </FormLabel>
                 <Input
                   placeholder="Jira access token"
                   type="text"
                   onChange={(e) => setAccessToken(e.target.value)}
                 />
-                  <Button colorScheme='teal' variant='solid' size='xs' onClick={() => handleHowToGetJiraToken()}>
-                      🚀 How To Get Jira Access Token 🚀
-                  </Button>
               </FormControl>
             </>
           )}
