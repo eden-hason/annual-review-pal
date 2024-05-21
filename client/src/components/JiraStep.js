@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import {
-  Card,
-  CardBody,
-  Button,
-  Text,
-  FormControl,
-  FormLabel,
-  Input,
-  Spinner,
-  SlideFade,
-  Box,
+    Card,
+    CardBody,
+    Button,
+    Text,
+    FormControl,
+    FormLabel,
+    Input,
+    Spinner,
+    SlideFade,
 } from '@chakra-ui/react';
 import axios from 'axios';
 
@@ -29,6 +28,11 @@ const JiraStep = ({ onNextClick }) => {
         setJiraSummary(res);
       });
   };
+
+  const handleHowToGetJiraToken = () => {
+      const url = 'https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html'
+      window.open(url, "_blank")
+  }
 
   return (
     <Card
@@ -70,6 +74,9 @@ const JiraStep = ({ onNextClick }) => {
                   type="text"
                   onChange={(e) => setAccessToken(e.target.value)}
                 />
+                  <Button colorScheme='teal' variant='solid' size='xs' onClick={() => handleHowToGetJiraToken()}>
+                      🚀 How To Get Jira Access Token 🚀
+                  </Button>
               </FormControl>
             </>
           )}
