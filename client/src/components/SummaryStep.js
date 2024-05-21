@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import {Card, CardBody, Text, Table, SlideFade, Textarea} from '@chakra-ui/react';
-import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 const Chance = require('chance');
 const chance = new Chance();
 const SummaryStep = ({}) => {
